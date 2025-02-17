@@ -60,3 +60,5 @@ android/.gradle/
 android/app/build/
 ios/Pods/
 ios/build/
+
+.early.coverage/
