@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>grocery_app_ui</string>
+	<string>Grocery App</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -53,7 +53,9 @@
 		<string>Okra-ExtraBold.ttf</string>
 		<string>Okra-Medium.ttf</string>
 		<string>Okra-MediumLight.ttf</string>
-		<string>Okra-Regular.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Ionicons.ttf</string>
 	</array>
 </dict>
 </plist>
