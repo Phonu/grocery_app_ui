@@ -10,8 +10,9 @@ class AppDelegate: RCTAppDelegate {
     self.moduleName = "grocery_app_ui"
     self.dependencyProvider = RCTAppDependencyProvider()
 
-    [GMSServices provideAPIKey:@"YOUR_GOOGLE_MAP_API_KEY"]; // add this line using the api key obtained from Google Console
-
+    // add this line using the api key obtained from Google Console
+    // GMSServices.provideAPIKey("YOUR_GOOGLE_MAP_API_KEY")
+    
     // You can add your custom initial props in the dictionary below.
     // They will be passed down to the ViewController used by React Native.
     self.initialProps = [:]
