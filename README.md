@@ -35,3 +35,5 @@ zustand
 npm i react-native-reanimated-carousel react-native-responsive-fontsize react-native-rolling-bar react-native-safe-area-context react-native-screens react-native-vector-icons socket.io-client zustand
 
 npm i react-native-svg react-native-svg-transformer
+
+npm i @homielab/react-native-auto-scroll
