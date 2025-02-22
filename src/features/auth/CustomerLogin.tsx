@@ -46,9 +46,7 @@ const CustomerLogin = () => {
     }
   }, []);
 
-  // TODO : Gesturehandler is not receiving the nativeEvent => NEED TO CHECK
-  // sequence up up dowm left right to navigate to DeliveryScreen
-  const handleGesture = (nativeEvent: any) => {
+  const handleGesture = ({ nativeEvent }: any) => {
     console.log("nativeEvent", nativeEvent);
     if (nativeEvent.state === State.END) {
       const { translationX, translationY } = nativeEvent;
@@ -59,25 +57,27 @@ const CustomerLogin = () => {
       } else {
         direction = translationY > 0 ? "down" : "up";
       }
-
+      console.log(direction);
       const newSequence = [...gestureSequence, direction].slice(-5);
       setGestureSequence(newSequence);
+      console.log(newSequence);
+
       if (newSequence?.join(" ") === "up up down left right") {
         resetAndNavigate("DeliveryLogin");
       }
     }
   };
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView style={[styles.container]}>
       <View style={styles.container}>
-        {/* <CustomSafeAreaView> */}
+        <SafeAreaView />
         <ProductSlider />
         <PanGestureHandler onHandlerStateChange={handleGesture}>
           <Animated.ScrollView
-            contentContainerStyle={styles.subContainer}
             bounces={false}
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.subContainer}
           >
             <LinearGradient colors={bottomColors} style={styles.gradient} />
             <View style={styles.content}>
@@ -98,7 +98,6 @@ const CustomerLogin = () => {
             </View>
           </Animated.ScrollView>
         </PanGestureHandler>
-        {/* </CustomSafeAreaView> */}
         <View style={styles.footer}>
           <SafeAreaView />
           <CustomText fontSize={RFValue(6)}>
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   footer: {
     borderTopWidth: 0.8,
     borderColor: Colors.border,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#f8f9fc",
+    // backgroundColor: "#f8f9fc",
     width: "100%",
   },
   subContainer: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
