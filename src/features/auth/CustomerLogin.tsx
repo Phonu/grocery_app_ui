@@ -21,6 +21,7 @@ import CustomText from "@components/ui/CustomText";
 import { RFValue } from "react-native-responsive-fontsize";
 import { resetAndNavigate } from "@utils/NavigationUtils";
 import useKeyboardOffsetHeight from "@utils/useKeyboardOffsetHeight";
+import CustomInput from "@components/ui/CustomInput";
 
 const bottomColors = [...lightColors].reverse();
 const CustomerLogin = () => {
@@ -31,6 +32,7 @@ const CustomerLogin = () => {
   const keyboardOffsetHeight = useKeyboardOffsetHeight();
 
   useEffect(() => {
+    console.log("get called on animation");
     if (keyboardOffsetHeight === 0) {
       Animated.timing(animationValue, {
         toValue: 0,
@@ -44,7 +46,7 @@ const CustomerLogin = () => {
         useNativeDriver: true,
       }).start();
     }
-  }, []);
+  }, [keyboardOffsetHeight]);
 
   const handleGesture = ({ nativeEvent }: any) => {
     console.log("nativeEvent", nativeEvent);
@@ -75,6 +77,7 @@ const CustomerLogin = () => {
         <PanGestureHandler onHandlerStateChange={handleGesture}>
           <Animated.ScrollView
             bounces={false}
+            style={{ transform: [{ translateY: animationValue }] }}
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={styles.subContainer}
@@ -95,6 +98,22 @@ const CustomerLogin = () => {
               >
                 LogIn or signUp
               </CustomText>
+              <CustomInput
+                onChangeText={(text) => setPhoneNumber(text.slice(0, 10))}
+                value={phoneNumber}
+                onClear={() => setPhoneNumber("")}
+                placeholder="Enter Phone Number"
+                inputMode="numeric"
+                left={
+                  <CustomText
+                    style={styles.phoneText}
+                    varient="h6"
+                    fontFamily={Fonts.SemiBold}
+                  >
+                    + 91
+                  </CustomText>
+                }
+              />
             </View>
           </Animated.ScrollView>
         </PanGestureHandler>
@@ -142,7 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    // backgroundColor: "white",
+    backgroundColor: "white",
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
@@ -156,6 +175,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 25,
     opacity: 0.8,
+  },
+  phoneText: {
+    marginLeft: 10,
   },
 });
 export default CustomerLogin;
