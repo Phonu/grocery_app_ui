@@ -22,6 +22,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { resetAndNavigate } from "@utils/NavigationUtils";
 import useKeyboardOffsetHeight from "@utils/useKeyboardOffsetHeight";
 import CustomInput from "@components/ui/CustomInput";
+import CustomButton from "@components/ui/CustomButton";
 
 const bottomColors = [...lightColors].reverse();
 const CustomerLogin = () => {
@@ -69,6 +70,8 @@ const CustomerLogin = () => {
       }
     }
   };
+
+  const handleAuth = () => {};
   return (
     <GestureHandlerRootView style={[styles.container]}>
       <View style={styles.container}>
@@ -114,6 +117,12 @@ const CustomerLogin = () => {
                   </CustomText>
                 }
               />
+              <CustomButton
+                title="Continue"
+                onPress={() => handleAuth()}
+                disabled={phoneNumber.length != 10}
+                loading={loading}
+              />
             </View>
           </Animated.ScrollView>
         </PanGestureHandler>
@@ -151,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   gradient: {
     paddingTop: 60,
