@@ -7,6 +7,8 @@ import {
   Image,
   Keyboard,
   Alert,
+  TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -30,6 +32,7 @@ import axios from "axios";
 import { BASE_URL } from "services/config";
 import { tokenStorage } from "@state/storage";
 import { useAuthStore } from "@state/authStore";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const bottomColors = [...lightColors].reverse();
 
@@ -169,6 +172,12 @@ const CustomerLogin = () => {
           </CustomText>
           <SafeAreaView />
         </View>
+        <TouchableOpacity
+          style={styles.absoluteSwitch}
+          onPress={() => resetAndNavigate("DeliveryLogin")}
+        >
+          <Icon name={"bike-fast"} size={RFValue(20)} color={"#000"} />
+        </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
   );
@@ -223,6 +232,24 @@ const styles = StyleSheet.create({
   },
   phoneText: {
     marginLeft: 10,
+  },
+  absoluteSwitch: {
+    position: "absolute",
+    top: Platform.OS === "ios" ? 50 : 20,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 12,
+    elevation: 10,
+    zIndex: 99,
+    padding: 10,
+    borderRadius: 40,
+    height: 80,
+    width: 80,
+    right: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default CustomerLogin;
