@@ -5,6 +5,8 @@ import {
   SafeAreaView,
   Animated,
   Image,
+  Keyboard,
+  Alert,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -71,7 +73,17 @@ const CustomerLogin = () => {
     }
   };
 
-  const handleAuth = () => {};
+  const handleAuth = () => {
+    Keyboard.dismiss();
+    setLoading(true);
+    try {
+    } catch (error) {
+      Alert.alert("Login Failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <GestureHandlerRootView style={[styles.container]}>
       <View style={styles.container}>
