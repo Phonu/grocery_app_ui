@@ -25,8 +25,27 @@ import { resetAndNavigate } from "@utils/NavigationUtils";
 import useKeyboardOffsetHeight from "@utils/useKeyboardOffsetHeight";
 import CustomInput from "@components/ui/CustomInput";
 import CustomButton from "@components/ui/CustomButton";
+import { customerLogin } from "services/authServices";
+import axios from "axios";
+import { BASE_URL } from "services/config";
+import { tokenStorage } from "@state/storage";
+import { useAuthStore } from "@state/authStore";
 
 const bottomColors = [...lightColors].reverse();
+
+const getCustomer = async (phone: string) => {
+  const response = await axios.post(
+    "http://localhost:3000/api/customer/login",
+    { phone }
+  );
+
+  const { accessToken, refershToken, customer } = response.data;
+  tokenStorage.set("accessToken", accessToken);
+  tokenStorage.set("refereshToken", refershToken);
+  const { setUser } = useAuthStore.getState();
+  console.log("customer", customer);
+  setUser(customer);
+};
 const CustomerLogin = () => {
   const [gestureSequence, setGestureSequence] = useState<string[]>([]);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -73,10 +92,15 @@ const CustomerLogin = () => {
     }
   };
 
-  const handleAuth = () => {
+  const handleAuth = async () => {
+    console.log("handleAuthhandleAuthhandleAuth");
     Keyboard.dismiss();
     setLoading(true);
     try {
+      await getCustomer(phoneNumber);
+      //TODO: api is not working with exported service method.
+      // await customerLogin(phoneNumber);
+      resetAndNavigate("ProductDashboard");
     } catch (error) {
       Alert.alert("Login Failed");
     } finally {
