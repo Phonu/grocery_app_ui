@@ -22,6 +22,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { RFValue } from "react-native-responsive-fontsize";
 import CustomButton from "@components/ui/CustomButton";
 
+// TODO: need to add api on service folder
 export const getDeliveryPartnerLogin = async (
   email: string,
   password: string
@@ -33,7 +34,7 @@ export const getDeliveryPartnerLogin = async (
   console.log("response deliveryParter", response.data);
   const { accessToken, refershToken, deliveryParter } = response.data;
   tokenStorage.set("accessToken", accessToken);
-  tokenStorage.set("refereshToken", refershToken);
+  tokenStorage.set("refreshToken", refershToken);
   const { setUser } = useAuthStore.getState();
   console.log("deliveryParter", deliveryParter);
   setUser(deliveryParter);

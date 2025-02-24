@@ -44,7 +44,7 @@ const getCustomer = async (phone: string) => {
 
   const { accessToken, refershToken, customer } = response.data;
   tokenStorage.set("accessToken", accessToken);
-  tokenStorage.set("refereshToken", refershToken);
+  tokenStorage.set("refreshToken", refershToken);
   const { setUser } = useAuthStore.getState();
   console.log("customer", customer);
   setUser(customer);

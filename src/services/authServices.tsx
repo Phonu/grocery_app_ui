@@ -12,7 +12,7 @@ export const customerLogin = async (phone: string) => {
     );
     const { accessToken, refereshToken, customer } = response.data;
     tokenStorage.set("accessToken", accessToken);
-    tokenStorage.set("refereshToken", refereshToken);
+    tokenStorage.set("refreshToken", refereshToken);
     const { setUser } = useAuthStore.getState();
     setUser(customer);
   } catch (error) {
