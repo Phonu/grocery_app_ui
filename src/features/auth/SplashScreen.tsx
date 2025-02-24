@@ -8,7 +8,7 @@ import { useAuthStore } from "@state/authStore";
 import { tokenStorage } from "@state/storage";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { appAxios } from "services/apiInterceptors";
+import { refetchUserAPI, refresh_tokensAPI } from "@service/authServices";
 
 // GeoLocation.setRNConfiguration({
 //   skipPermissionRequests: false,
@@ -20,37 +20,6 @@ import { appAxios } from "services/apiInterceptors";
 interface DecodedToken {
   exp: number;
 }
-
-// TODO: need to add api on service folder
-export const refresh_tokens = async () => {
-  try {
-    const refreshToken = tokenStorage.getString("refreshToken");
-    const response = await axios.post(
-      "http://localhost:3000/api/refresh-token",
-      { refreshToken }
-    );
-
-    const new_access_token = response.data.accessToken;
-    const new_refresh_token = response.data.refreshToken;
-
-    tokenStorage.set("accessToken", new_access_token);
-    tokenStorage.set("refreshToken", new_refresh_token);
-    return new_access_token;
-  } catch (error) {
-    console.log("REFRESH TOKEN ERROR", error);
-    tokenStorage.clearAll();
-    resetAndNavigate("CustomerLogin");
-  }
-};
-
-export const refetechUser = async (setUser: any) => {
-  try {
-    // const response = await appAxios.get(`/user`);
-    // setUser(response.data.user);
-  } catch (error) {
-    console.log("Login Error ", error);
-  }
-};
 
 const SplashScreen: FC = () => {
   const { user, setUser } = useAuthStore();
@@ -76,8 +45,8 @@ const SplashScreen: FC = () => {
       }
       if (decodedRefreshToken?.exp < currentTime) {
         try {
-          refresh_tokens();
-          await refetechUser(setUser);
+          await refresh_tokensAPI();
+          await refetchUserAPI(setUser);
         } catch (error) {
           console.log(error);
           Alert.alert("There is some error while refereshing token");
@@ -103,7 +72,7 @@ const SplashScreen: FC = () => {
 
       try {
         // navigate("CustomerLogin");
-        tokenCheck();
+        await tokenCheck();
         console.log("Token validation at initialStartup");
       } catch (error) {
         console.log("getting error", error);

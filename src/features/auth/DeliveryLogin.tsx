@@ -21,24 +21,7 @@ import CustomInput from "@components/ui/CustomInput";
 import Icon from "react-native-vector-icons/Ionicons";
 import { RFValue } from "react-native-responsive-fontsize";
 import CustomButton from "@components/ui/CustomButton";
-
-// TODO: need to add api on service folder
-export const getDeliveryPartnerLogin = async (
-  email: string,
-  password: string
-) => {
-  const response = await axios.post(
-    "http://localhost:3000/api/delivery/login",
-    { email, password }
-  );
-  console.log("response deliveryParter", response.data);
-  const { accessToken, refershToken, deliveryParter } = response.data;
-  tokenStorage.set("accessToken", accessToken);
-  tokenStorage.set("refreshToken", refershToken);
-  const { setUser } = useAuthStore.getState();
-  console.log("deliveryParter", deliveryParter);
-  setUser(deliveryParter);
-};
+import { getDeliveryPartnerLoginAPI } from "@service/authServices";
 
 const DeliveryLogin: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -49,7 +32,7 @@ const DeliveryLogin: FC = () => {
     Keyboard.dismiss();
     setLoading(true);
     try {
-      await getDeliveryPartnerLogin(email, password);
+      await getDeliveryPartnerLoginAPI(email, password);
       resetAndNavigate("DeliveryDashboard");
     } catch (error) {
       Alert.alert("DeliveryPartner Login Failed");
