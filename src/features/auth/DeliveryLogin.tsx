@@ -22,6 +22,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { RFValue } from "react-native-responsive-fontsize";
 import CustomButton from "@components/ui/CustomButton";
 import { getDeliveryPartnerLoginAPI } from "@service/authServices";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const DeliveryLogin: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -42,6 +43,7 @@ const DeliveryLogin: FC = () => {
   };
 
   return (
+    // <GestureHandlerRootView style={{ flex: 1 }}>
     <CustomSafeAreaView>
       <ScrollView
         keyboardShouldPersistTaps={"handled"}
@@ -64,8 +66,7 @@ const DeliveryLogin: FC = () => {
             Faster than flash⚡️
           </CustomText>
 
-          {/* TODO: Need to fix this: CustomInput is not working.*/}
-          {/* <CustomInput
+          <CustomInput
             onChangeText={setEmail}
             value={email}
             placeholder="EmailId"
@@ -94,38 +95,8 @@ const DeliveryLogin: FC = () => {
               />
             }
             right={false}
-          /> */}
-
-          <TextInput
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Email-Id"
-            // inputMode="email"
-            style={{
-              height: 50,
-              width: "60%",
-              borderColor: "red",
-              fontSize: 24,
-              borderWidth: 1,
-              padding: 12,
-              margin: 12,
-            }}
           />
 
-          <TextInput
-            onChangeText={setPassword}
-            value={password}
-            placeholder="password"
-            // secureTextEntry
-            style={{
-              height: 50,
-              width: "60%",
-              borderColor: "red",
-              fontSize: 24,
-              borderWidth: 1,
-              padding: 12,
-            }}
-          />
           <CustomButton
             title="Login"
             onPress={() => handleAuth()}
@@ -135,6 +106,7 @@ const DeliveryLogin: FC = () => {
         </View>
       </ScrollView>
     </CustomSafeAreaView>
+    // </GestureHandlerRootView>
   );
 };
 
